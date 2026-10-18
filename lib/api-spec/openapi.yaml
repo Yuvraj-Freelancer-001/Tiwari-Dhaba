@@ -1,0 +1,678 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: Tiwari Dhaba customer and owner API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: public
+  - name: orders
+  - name: bookings
+  - name: admin
+  - name: storage
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [public]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /business:
+    get:
+      operationId: getBusiness
+      tags: [public]
+      summary: Business details
+      responses:
+        "200":
+          description: Business details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Business"
+  /menu:
+    get:
+      operationId: listMenu
+      tags: [public]
+      summary: List menu items
+      responses:
+        "200":
+          description: Menu
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/MenuItem" }
+    post:
+      operationId: createMenuItem
+      tags: [admin]
+      summary: Add menu item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/MenuItemInput" }
+      responses:
+        "201":
+          description: Created menu item
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MenuItem" }
+  /menu/{id}:
+    patch:
+      operationId: updateMenuItem
+      tags: [admin]
+      summary: Update menu item
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/MenuItemUpdate" }
+      responses:
+        "200":
+          description: Updated menu item
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MenuItem" }
+    delete:
+      operationId: deleteMenuItem
+      tags: [admin]
+      summary: Remove menu item
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        "204": { description: Removed }
+  /rooms:
+    get:
+      operationId: listRooms
+      tags: [public]
+      summary: List room types
+      responses:
+        "200":
+          description: Room types
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/RoomType" }
+    post:
+      operationId: createRoomType
+      tags: [admin]
+      summary: Add room type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/RoomTypeInput" }
+      responses:
+        "201":
+          description: Created room type
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RoomType" }
+  /rooms/{id}:
+    patch:
+      operationId: updateRoomType
+      tags: [admin]
+      summary: Update room type
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/RoomTypeUpdate" }
+      responses:
+        "200":
+          description: Updated room type
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RoomType" }
+  /gallery:
+    get:
+      operationId: listGallery
+      tags: [public]
+      summary: List gallery images and placeholders
+      responses:
+        "200":
+          description: Gallery
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/GalleryImage" }
+    post:
+      operationId: createGalleryImage
+      tags: [admin]
+      summary: Add or replace gallery image
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/GalleryImageInput" }
+      responses:
+        "201":
+          description: Created gallery image
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/GalleryImage" }
+  /gallery/{id}:
+    patch:
+      operationId: updateGalleryImage
+      tags: [admin]
+      summary: Update gallery image
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/GalleryImageUpdate" }
+      responses:
+        "200":
+          description: Updated gallery image
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/GalleryImage" }
+    delete:
+      operationId: deleteGalleryImage
+      tags: [admin]
+      summary: Remove gallery image
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        "204": { description: Removed }
+  /orders:
+    post:
+      operationId: createOrder
+      tags: [orders]
+      summary: Place dine-in or pickup order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/OrderInput" }
+      responses:
+        "201":
+          description: Order created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Order" }
+    get:
+      operationId: listOrders
+      tags: [admin]
+      summary: List orders for owner
+      responses:
+        "200":
+          description: Orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Order" }
+  /orders/{id}:
+    patch:
+      operationId: updateOrder
+      tags: [admin]
+      summary: Update order status
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/OrderUpdate" }
+      responses:
+        "200":
+          description: Updated order
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Order" }
+  /orders/{id}/payment:
+    post:
+      operationId: createOrderPayment
+      tags: [orders]
+      summary: Create Razorpay order for an existing menu order
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        "200":
+          description: Razorpay checkout details
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PaymentSession" }
+  /bookings:
+    post:
+      operationId: createBooking
+      tags: [bookings]
+      summary: Book a room
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BookingInput" }
+      responses:
+        "201":
+          description: Booking created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Booking" }
+    get:
+      operationId: listBookings
+      tags: [admin]
+      summary: List room bookings for owner
+      responses:
+        "200":
+          description: Bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Booking" }
+  /bookings/{id}:
+    patch:
+      operationId: updateBooking
+      tags: [admin]
+      summary: Confirm or reject a booking
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BookingUpdate" }
+      responses:
+        "200":
+          description: Updated booking
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Booking" }
+  /bookings/{id}/payment:
+    post:
+      operationId: createBookingPayment
+      tags: [bookings]
+      summary: Create Razorpay order for room booking
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        "200":
+          description: Razorpay checkout details
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PaymentSession" }
+  /payments/verify:
+    post:
+      operationId: verifyPayment
+      tags: [orders, bookings]
+      summary: Verify Razorpay payment signature on server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PaymentVerification" }
+      responses:
+        "200":
+          description: Verified payment status
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PaymentVerificationResult" }
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [admin]
+      summary: Owner login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AdminLoginInput" }
+      responses:
+        "200":
+          description: Login state
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AdminSession" }
+  /admin/session:
+    get:
+      operationId: getAdminSession
+      tags: [admin]
+      summary: Get owner login state
+      responses:
+        "200":
+          description: Login state
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AdminSession" }
+  /admin/logout:
+    post:
+      operationId: adminLogout
+      tags: [admin]
+      summary: Owner logout
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AdminSession" }
+  /admin/dashboard:
+    get:
+      operationId: getAdminDashboard
+      tags: [admin]
+      summary: Owner dashboard summary
+      responses:
+        "200":
+          description: Counts and recent activity
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AdminDashboard" }
+  /storage/uploads/request-url:
+    post:
+      operationId: requestUploadUrl
+      tags: [storage]
+      summary: Request an image upload URL
+      description: Creates a short-lived direct-to-storage URL for an owner-uploaded photo.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UploadUrlRequest" }
+      responses:
+        "200":
+          description: Upload URL and object path
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/UploadUrlResponse" }
+  /storage/uploads/complete:
+    post:
+      operationId: completeUpload
+      tags: [storage]
+      summary: Validate and publish an uploaded photo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UploadCompleteRequest" }
+      responses:
+        "200":
+          description: Validated public image path
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/UploadCompleteResponse" }
+  /storage/objects/{path}:
+    get:
+      operationId: getStorageObject
+      tags: [storage]
+      summary: Serve a public dhaba photo
+      parameters:
+        - { name: path, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: Image data
+          content:
+            image/*:
+              schema: { type: string, format: binary }
+        "404": { description: Photo not found }
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status: { type: string }
+      required: [status]
+    Business:
+      type: object
+      required: [name, type, location, priceRange, rating, reviewCount, categories, hours, whatsappNumber]
+      properties:
+        name: { type: string }
+        type: { type: string }
+        location: { type: string }
+        priceRange: { type: string }
+        rating: { type: number }
+        reviewCount: { type: string }
+        categories: { type: array, items: { type: string } }
+        hours: { type: string }
+        whatsappNumber: { type: ["string", "null"] }
+    MenuItem:
+      type: object
+      required: [id, name, category, description, price, priceIsPlaceholder, available, imagePath]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        category: { type: string }
+        description: { type: string }
+        price: { type: number }
+        priceIsPlaceholder: { type: boolean }
+        available: { type: boolean }
+        imagePath: { type: ["string", "null"] }
+    MenuItemInput:
+      type: object
+      required: [name, category, description, price]
+      properties:
+        name: { type: string, minLength: 1 }
+        category: { type: string }
+        description: { type: string }
+        price: { type: number, minimum: 1, maximum: 200 }
+        priceIsPlaceholder: { type: boolean, default: true }
+        available: { type: boolean, default: true }
+        imagePath: { type: ["string", "null"] }
+    MenuItemUpdate:
+      type: object
+      properties:
+        name: { type: string }
+        category: { type: string }
+        description: { type: string }
+        price: { type: number, minimum: 1, maximum: 200 }
+        priceIsPlaceholder: { type: boolean }
+        available: { type: boolean }
+        imagePath: { type: ["string", "null"] }
+    RoomType:
+      type: object
+      required: [id, name, description, pricePerNight, priceIsPlaceholder, imagePath, blockedDates]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        description: { type: string }
+        pricePerNight: { type: number }
+        priceIsPlaceholder: { type: boolean }
+        imagePath: { type: ["string", "null"] }
+        blockedDates: { type: array, items: { type: string } }
+    RoomTypeInput:
+      type: object
+      required: [name, description, pricePerNight]
+      properties:
+        name: { type: string }
+        description: { type: string }
+        pricePerNight: { type: number, minimum: 0 }
+        priceIsPlaceholder: { type: boolean, default: true }
+        imagePath: { type: ["string", "null"] }
+        blockedDates: { type: array, items: { type: string } }
+    RoomTypeUpdate:
+      type: object
+      properties:
+        name: { type: string }
+        description: { type: string }
+        pricePerNight: { type: number, minimum: 0 }
+        priceIsPlaceholder: { type: boolean }
+        imagePath: { type: ["string", "null"] }
+        blockedDates: { type: array, items: { type: string } }
+    GalleryImage:
+      type: object
+      required: [id, section, caption, imagePath, isPlaceholder]
+      properties:
+        id: { type: integer }
+        section: { type: string }
+        caption: { type: string }
+        imagePath: { type: ["string", "null"] }
+        isPlaceholder: { type: boolean }
+    GalleryImageInput:
+      type: object
+      required: [section, caption]
+      properties:
+        section: { type: string }
+        caption: { type: string }
+        imagePath: { type: ["string", "null"] }
+    GalleryImageUpdate:
+      type: object
+      properties:
+        section: { type: string }
+        caption: { type: string }
+        imagePath: { type: ["string", "null"] }
+    OrderLineInput:
+      type: object
+      required: [menuItemId, quantity]
+      properties:
+        menuItemId: { type: integer }
+        quantity: { type: integer, minimum: 1, maximum: 50 }
+    OrderLine:
+      type: object
+      required: [menuItemId, name, quantity, unitPrice, priceIsPlaceholder]
+      properties:
+        menuItemId: { type: integer }
+        name: { type: string }
+        quantity: { type: integer }
+        unitPrice: { type: number }
+        priceIsPlaceholder: { type: boolean }
+    OrderInput:
+      type: object
+      required: [customerName, phone, fulfillment, paymentMethod, items]
+      properties:
+        customerName: { type: string, minLength: 1 }
+        phone: { type: string, minLength: 8 }
+        fulfillment: { type: string, enum: [dine-in, pickup] }
+        paymentMethod: { type: string, enum: [online, counter] }
+        items: { type: array, minItems: 1, items: { $ref: "#/components/schemas/OrderLineInput" } }
+    Order:
+      type: object
+      required: [id, reference, customerName, phone, fulfillment, paymentMethod, items, total, paymentStatus, paymentId, status, createdAt]
+      properties:
+        id: { type: integer }
+        reference: { type: string }
+        customerName: { type: string }
+        phone: { type: string }
+        fulfillment: { type: string }
+        paymentMethod: { type: string }
+        items: { type: array, items: { $ref: "#/components/schemas/OrderLine" } }
+        total: { type: number }
+        paymentStatus: { type: string, enum: [pending, paid, failed] }
+        paymentId: { type: ["string", "null"] }
+        status: { type: string, enum: [Received, Preparing, Ready, Completed] }
+        createdAt: { type: string }
+    OrderUpdate:
+      type: object
+      properties:
+        status: { type: string, enum: [Received, Preparing, Ready, Completed] }
+    BookingInput:
+      type: object
+      required: [customerName, phone, checkIn, checkOut, guests, roomTypeId, paymentMethod]
+      properties:
+        customerName: { type: string, minLength: 1 }
+        phone: { type: string, minLength: 8 }
+        checkIn: { type: string, format: date }
+        checkOut: { type: string, format: date }
+        guests: { type: integer, minimum: 1, maximum: 20 }
+        roomTypeId: { type: integer }
+        paymentMethod: { type: string, enum: [online, counter] }
+    Booking:
+      type: object
+      required: [id, reference, customerName, phone, checkIn, checkOut, guests, roomTypeId, roomTypeName, total, paymentAmount, priceIsPlaceholder, paymentMethod, paymentStatus, paymentId, status, createdAt]
+      properties:
+        id: { type: integer }
+        reference: { type: string }
+        customerName: { type: string }
+        phone: { type: string }
+        checkIn: { type: string, format: date }
+        checkOut: { type: string, format: date }
+        guests: { type: integer }
+        roomTypeId: { type: integer }
+        roomTypeName: { type: string }
+        total: { type: number }
+        paymentAmount: { type: number }
+        priceIsPlaceholder: { type: boolean }
+        paymentMethod: { type: string, enum: [online, counter] }
+        paymentStatus: { type: string, enum: [pending, paid, failed] }
+        paymentId: { type: ["string", "null"] }
+        status: { type: string, enum: [Pending, Confirmed, Rejected] }
+        createdAt: { type: string }
+    BookingUpdate:
+      type: object
+      properties:
+        status: { type: string, enum: [Pending, Confirmed, Rejected] }
+    PaymentSession:
+      type: object
+      required: [keyId, razorpayOrderId, amount, currency]
+      properties:
+        keyId: { type: string }
+        razorpayOrderId: { type: string }
+        amount: { type: integer }
+        currency: { type: string }
+    PaymentVerification:
+      type: object
+      required: [kind, recordId, razorpayOrderId, razorpayPaymentId, razorpaySignature]
+      properties:
+        kind: { type: string, enum: [order, booking] }
+        recordId: { type: integer }
+        razorpayOrderId: { type: string }
+        razorpayPaymentId: { type: string }
+        razorpaySignature: { type: string }
+    PaymentVerificationResult:
+      type: object
+      required: [verified, reference, paymentStatus]
+      properties:
+        verified: { type: boolean }
+        reference: { type: string }
+        paymentStatus: { type: string, enum: [paid, failed] }
+    AdminLoginInput:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, minLength: 1 }
+    AdminSession:
+      type: object
+      required: [authenticated, configured]
+      properties:
+        authenticated: { type: boolean }
+        configured: { type: boolean }
+    AdminDashboard:
+      type: object
+      required: [openOrders, pendingBookings, todayOrders, recentOrders, recentBookings]
+      properties:
+        openOrders: { type: integer }
+        pendingBookings: { type: integer }
+        todayOrders: { type: integer }
+        recentOrders: { type: array, items: { $ref: "#/components/schemas/Order" } }
+        recentBookings: { type: array, items: { $ref: "#/components/schemas/Booking" } }
+    UploadUrlRequest:
+      type: object
+      required: [name, size, contentType]
+      properties:
+        name: { type: string, minLength: 1 }
+        size: { type: integer, minimum: 1 }
+        contentType: { type: string, minLength: 1 }
+    UploadUrlResponse:
+      type: object
+      required: [uploadURL, objectPath, metadata]
+      properties:
+        uploadURL: { type: string, format: uri }
+        objectPath: { type: string }
+        metadata: { $ref: "#/components/schemas/UploadUrlRequest" }
+    UploadCompleteRequest:
+      type: object
+      required: [objectPath]
+      properties:
+        objectPath: { type: string, minLength: 1 }
+    UploadCompleteResponse:
+      type: object
+      required: [imagePath]
+      properties:
+        imagePath: { type: string }

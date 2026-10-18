@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Tiwari Dhaba, Kanpur</title>
+  <desc id="description">Pure vegetarian food in Kanpur, open 24 hours every day.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#24130f"/>
+      <stop offset=".58" stop-color="#49251b"/>
+      <stop offset="1" stop-color="#9b3b1d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="78%" cy="24%" r="64%">
+      <stop offset="0" stop-color="#e6a33c" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#e6a33c" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grain" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r=".7" fill="#f5e6cd" fill-opacity=".15"/>
+      <circle cx="6" cy="5" r=".55" fill="#f5e6cd" fill-opacity=".12"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#grain)"/>
+  <circle cx="941" cy="292" r="193" fill="none" stroke="#f2d5a4" stroke-opacity=".48" stroke-width="1.5"/>
+  <circle cx="941" cy="292" r="164" fill="none" stroke="#f2d5a4" stroke-opacity=".24" stroke-width="1"/>
+  <path d="M941 151c-42 42-48 91-5 137-25-7-51-2-73 17 9-72 32-121 78-154Zm5 139c42 42 48 91 5 137 25-7 51-2 73 17-9-72-32-121-78-154Z" fill="#f2d5a4" fill-opacity=".68" transform="rotate(45 946 293)"/>
+  <circle cx="941" cy="292" r="11" fill="#e6a33c"/>
+  <text x="92" y="106" fill="#f1bd67" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="5">KANPUR · PURE VEGETARIAN</text>
+  <text x="88" y="280" fill="#fff4e2" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700">Tiwari Dhaba</text>
+  <text x="96" y="365" fill="#f2d5a4" font-family="Georgia, 'Times New Roman', serif" font-size="57" font-style="italic">A good meal. Any hour.</text>
+  <text x="98" y="486" fill="#fff4e2" font-family="Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="3">OPEN 24 HOURS · EVERY DAY</text>
+</svg>

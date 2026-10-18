@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Tiwari Dhaba"
+description = "A warm, practical website for Tiwari Dhaba in Kanpur with menu ordering, room bookings, gallery placeholders, reviews, and a simple owner admin panel."
+version = "1.0.0"
+id = "artifacts/tiwari-dhaba"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20671
+
+[services.development]
+run = "pnpm --filter @workspace/tiwari-dhaba run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/tiwari-dhaba", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/tiwari-dhaba/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20671"
+BASE_PATH = "/"
