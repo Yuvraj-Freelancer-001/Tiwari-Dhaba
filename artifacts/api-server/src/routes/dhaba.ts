@@ -9,7 +9,7 @@ import {
   ordersTable,
   roomTypesTable,
   type OrderLine,
-} from "@workspace/db";
+} from "../_vendor/db";
 import {
   AdminLoginBody,
   AdminLoginResponse,
@@ -53,7 +53,7 @@ import {
   UpdateRoomTypeResponse,
   VerifyPaymentBody,
   VerifyPaymentResponse,
-} from "@workspace/api-zod";
+} from "../_vendor/api-zod";
 
 const router: IRouter = Router();
 const gallerySections = [

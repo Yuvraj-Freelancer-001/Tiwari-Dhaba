@@ -4,7 +4,7 @@ import {
   CompleteUploadResponse,
   RequestUploadUrlBody,
   RequestUploadUrlResponse,
-} from "@workspace/api-zod";
+} from "../_vendor/api-zod";
 import { Router, type IRouter, type Request, type Response } from "express";
 import { requireDhabaAdmin } from "./dhaba";
 import {
