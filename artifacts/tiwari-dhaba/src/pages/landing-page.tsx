@@ -5,8 +5,8 @@ import {
   Star, Waves,
 } from 'lucide-react';
 import { Link } from 'wouter';
-import { useGetBusiness, useListGallery, useListMenu } from '@workspace/api-client-react';
-import type { GalleryImage, MenuItem } from '@workspace/api-client-react';
+import { useGetBusiness, useListGallery, useListMenu } from '../_vendor/api-client-react';
+import type { GalleryImage, MenuItem } from '../_vendor/api-client-react';
 
 const menuCategories = ['Breakfast', 'Lunch', 'Dinner', 'Coffee', 'Sweets'];
 const proofSlides = [

@@ -19,8 +19,8 @@ import {
   useGetAdminDashboard, useGetAdminSession, useGetBusiness, useListBookings, useListGallery,
   useListMenu, useListOrders, useListRooms, useUpdateBooking, useUpdateGalleryImage, useUpdateMenuItem,
   useUpdateOrder, useUpdateRoomType, useVerifyPayment,
-} from '@workspace/api-client-react';
-import type { Booking, GalleryImage, MenuItem, Order, RoomType } from '@workspace/api-client-react';
+} from './_vendor/api-client-react';
+import type { Booking, GalleryImage, MenuItem, Order, RoomType } from './_vendor/api-client-react';
 import { uploadDhabaImage } from '@/lib/uploads';
 
 const queryClient = new QueryClient();
