@@ -4,6 +4,7 @@ import { Router, type IRouter, type Request, type Response } from "express";
 import {
   bookingsTable,
   db,
+  ensureSchema,
   galleryImagesTable,
   menuItemsTable,
   ordersTable,
@@ -191,6 +192,7 @@ let seedPromise: Promise<void> | undefined;
 async function ensureSeed(): Promise<void> {
   if (!seedPromise) {
     seedPromise = (async () => {
+      await ensureSchema();
       await db
         .insert(menuItemsTable)
         .values(
