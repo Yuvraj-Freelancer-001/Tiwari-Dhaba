@@ -8,7 +8,6 @@ import { Link } from 'wouter';
 import { useGetBusiness, useListGallery, useListMenu } from '../_vendor/api-client-react';
 import type { GalleryImage, MenuItem } from '../_vendor/api-client-react';
 
-const menuCategories = ['Breakfast', 'Lunch', 'Dinner', 'Coffee', 'Sweets'];
 const proofSlides = [
   { label: 'Google rating', value: 'rating' },
   { label: 'Guest reviews', value: 'reviews' },
@@ -98,6 +97,12 @@ export default function LandingPage() {
   const heroImage = menuItems.find(item => item.available && item.imagePath)?.imagePath
     || galleryItems.find(item => item.imagePath)?.imagePath
     || '/tiwari-dhaba-feast.webp';
+  // Build the tab list from whatever categories the owner's actual menu
+  // items use, instead of a fixed guess — a fixed list silently shows
+  // nothing when it doesn't match the real category names in the data.
+  const menuCategories = Array.from(
+    new Set(menuItems.filter(item => item.available).map(item => item.category)),
+  );
   const spotlightItems = menuItems
     .filter(item => item.available && (category === 'All' || item.category === category))
     .slice(0, 3);
