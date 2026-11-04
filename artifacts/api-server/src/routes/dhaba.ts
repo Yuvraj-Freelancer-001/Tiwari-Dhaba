@@ -183,7 +183,7 @@ const initialMenu = [
   ["Mushroom Pulao", "Rice & Pulao", "Rice pulao with mushrooms.", 160],
 ] as const;
 const initialRooms = [
-  ["Premium AC Rooms", "A comfortable air-conditioned room for a rest on the road.", 1800],
+  ["Premium AC Rooms", "A comfortable air-conditioned room for a rest on the road.", 1500],
   ["Non-AC Rooms", "A practical room for a simple, comfortable stay.", 1000],
 ] as const;
 
@@ -228,6 +228,13 @@ async function ensureSeed(): Promise<void> {
           })),
         )
         .onConflictDoNothing();
+      // Owner has confirmed these room prices — apply them, but only while
+      // still marked as a placeholder so a later manual edit in the admin
+      // panel is never overwritten by this seed routine.
+      for (const [name, description, pricePerNight] of initialRooms) {
+        await db.update(roomTypesTable).set({ description, pricePerNight, priceIsPlaceholder: false })
+          .where(and(eq(roomTypesTable.name, name), eq(roomTypesTable.priceIsPlaceholder, true)));
+      }
       await db
         .insert(galleryImagesTable)
         .values(
