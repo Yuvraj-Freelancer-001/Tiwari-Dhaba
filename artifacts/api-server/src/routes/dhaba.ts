@@ -93,7 +93,7 @@ const initialMenu = [
   ["Regular Thali", "Thalis", "Dal fry, matar paneer, seasonal vegetables, rice, four rotis, papad and salad.", 200],
   ["Special Thali", "Thalis", "Dal makhani, mixed vegetables, paneer butter masala, matar pulao, bread selection, two butter rotis, sweet, salad and papad.", 250],
   ["Onion Salad", "Salads", "Fresh onion salad.", 20],
-  ["Cucumber Salad", "Salads", "Fresh cucumber salad.", 30],
+  ["Vinegar Salad", "Salads", "Tangy vinegar-pickled salad.", 30],
   ["Green Salad", "Salads", "Fresh seasonal green salad.", 60],
   ["Arhar Dal Fry", "Dal & Lentils", "Arhar dal prepared in a traditional style.", 90],
   ["Mixed Dal", "Dal & Lentils", "Mixed lentils cooked with Indian spices.", 100],
@@ -146,10 +146,10 @@ const initialMenu = [
   ["Chilli Paneer Dry", "Paneer & Main Course", "Dry Indo-Chinese chilli paneer.", 210],
   ["Chilli Paneer Gravy", "Paneer & Main Course", "Chilli paneer served with gravy.", 240],
   ["Paneer Do Pyaza", "Paneer & Main Course", "Paneer and onion curry.", 230],
-  ["Paneer Fry Masala", "Paneer & Main Course", "Paneer in a spiced masala preparation.", 200],
+  ["Paneer Dry Masala", "Paneer & Main Course", "Paneer in a spiced dry masala preparation.", 200],
   ["Veg Kofta", "Paneer & Main Course", "Vegetable dumplings in curry.", 240],
   ["Malai Kofta", "Paneer & Main Course", "Soft kofta in a creamy gravy.", 270],
-  ["Paneer Bhurji", "Paneer & Main Course", "Crumbled paneer cooked with spices.", 270],
+  ["Paneer Bhujia", "Paneer & Main Course", "Paneer cooked in a dry, spiced style.", 270],
   ["Paneer Pasanda", "Paneer & Main Course", "Paneer in a rich pasanda gravy.", 290],
   ["Kaju Paneer", "Paneer & Main Course", "Paneer and cashew curry.", 270],
   ["Kaju Curry", "Paneer & Main Course", "Cashews in a rich curry.", 300],
@@ -165,7 +165,7 @@ const initialMenu = [
   ["Plain Maggi", "Noodles & Starters", "Classic masala-style instant noodles.", 50],
   ["Vegetable Maggi", "Noodles & Starters", "Instant noodles with vegetables.", 80],
   ["Paneer Maggi", "Noodles & Starters", "Noodles with paneer.", 100],
-  ["Aloo Tikki", "Noodles & Starters", "Crisp potato patties.", 150],
+  ["Aloo Tikka", "Noodles & Starters", "Crisp potato patties.", 150],
   ["Vegetable Noodles", "Noodles & Starters", "Stir-fried vegetable noodles.", 140],
   ["Paneer Noodles", "Noodles & Starters", "Noodles with paneer.", 160],
   ["Paneer Tikka", "Noodles & Starters", "Marinated paneer grilled with spices.", 320],
@@ -193,6 +193,19 @@ async function ensureSeed(): Promise<void> {
   if (!seedPromise) {
     seedPromise = (async () => {
       await ensureSchema();
+      // A few items were seeded earlier with an off translation of the
+      // printed menu card. Rename the existing rows in place (instead of
+      // inserting the corrected name as a new row) so the fix doesn't
+      // leave a duplicate item sitting next to the renamed one.
+      const nameCorrections: [string, string][] = [
+        ["Cucumber Salad", "Vinegar Salad"],
+        ["Paneer Bhurji", "Paneer Bhujia"],
+        ["Paneer Fry Masala", "Paneer Dry Masala"],
+        ["Aloo Tikki", "Aloo Tikka"],
+      ];
+      for (const [oldName, newName] of nameCorrections) {
+        await db.update(menuItemsTable).set({ name: newName }).where(eq(menuItemsTable.name, oldName));
+      }
       await db
         .insert(menuItemsTable)
         .values(
