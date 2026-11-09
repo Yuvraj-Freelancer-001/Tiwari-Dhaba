@@ -3,4 +3,5 @@ Allow: /
 Disallow: /admin
 Disallow: /order-confirmation
 Disallow: /booking-confirmation
-# Configure SITE_URL at build time to generate sitemap.xml.
+
+Sitemap: https://tiwari-dhaba-navy.vercel.app/sitemap.xml

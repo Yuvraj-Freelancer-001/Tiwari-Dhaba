@@ -22,6 +22,10 @@ const pages: Record<string, { title: string; description: string; robots?: strin
     title: 'Google Rating & Reviews | Tiwari Dhaba Kanpur',
     description: 'See the current Google rating and review count for Tiwari Dhaba in Kanpur.',
   },
+  '/rate': {
+    title: 'Rate Your Experience | Tiwari Dhaba Kanpur',
+    description: 'Tell us what stood out about your visit to Tiwari Dhaba in Kanpur, then share it as a Google review in one tap.',
+  },
   '/privacy-policy': {
     title: 'Privacy Information | Tiwari Dhaba',
     description: 'Read how Tiwari Dhaba uses information submitted through online orders, room booking requests, and owner-managed photos.',

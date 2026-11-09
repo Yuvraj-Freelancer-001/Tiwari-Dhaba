@@ -7,6 +7,7 @@ import {
 import { Link } from 'wouter';
 import { useGetBusiness, useListGallery, useListMenu } from '../_vendor/api-client-react';
 import type { GalleryImage, MenuItem } from '../_vendor/api-client-react';
+import { BUSINESS_ADDRESS_FULL, GOOGLE_MAPS_URL } from '../lib/business';
 
 const proofSlides = [
   { label: 'Google rating', value: 'rating' },
@@ -72,7 +73,7 @@ function MapsSearchLink() {
   return (
     <a
       className="button button-light magnetic"
-      href="https://www.google.com/maps/search/?api=1&query=Tiwari+Dhaba+Kanpur"
+      href={GOOGLE_MAPS_URL}
       target="_blank"
       rel="noopener noreferrer"
       data-testid="link-directions"
@@ -148,7 +149,7 @@ export default function LandingPage() {
             </div>
             <div className="hero-facts" data-hero-reveal>
               <span><Clock3 size={15} /> 24 hours · every day</span>
-              <span><MapPin size={15} /> Kanpur, Uttar Pradesh</span>
+              <span><MapPin size={15} /> NH 19, Bhautipratappur, Kanpur</span>
             </div>
           </div>
 
@@ -177,7 +178,7 @@ export default function LandingPage() {
                 <span className="hero-art-caption">An owner-supplied photo or video can be added here</span>
               </div>
             )}
-            <a className="hero-rating-card" data-testid="text-google-rating" href="https://www.google.com/maps/search/?api=1&query=Tiwari+Dhaba+Kanpur" target="_blank" rel="noopener noreferrer" aria-label={rating > 0 ? `${rating} out of 5 on Google; open Google listing` : 'Open Tiwari Dhaba Google listing to view current rating and reviews'}>
+            <a className="hero-rating-card" data-testid="text-google-rating" href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" aria-label={rating > 0 ? `${rating} out of 5 on Google; open Google listing` : 'Open Tiwari Dhaba Google listing to view current rating and reviews'}>
               {rating > 0 ? <><div className="rating-stars"><Star size={14} fill="currentColor" /><span>{rating} / 5</span></div><span>{reviewCount} Google reviews</span></> : <><div className="rating-stars"><MapPin size={14}/><span>Find us on Google</span></div><span>View current rating & reviews ↗</span></>}
             </a>
             <span className="hero-side-note">KANPUR · OPEN 24 / 7</span>
@@ -376,31 +377,37 @@ export default function LandingPage() {
               />
             ))}
           </div>
-          <a
-            className="proof-google-link"
-            href="https://www.google.com/search?q=Tiwari+Dhaba+Kanpur"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="link-google-reviews"
-          >
-            View Google listing <ArrowUpRight size={16} />
-          </a>
+          <div className="proof-links">
+            <a
+              className="proof-google-link"
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="link-google-reviews"
+            >
+              View Google listing <ArrowUpRight size={16} />
+            </a>
+            <Link href="/rate" className="proof-google-link" data-testid="link-rate-experience">
+              Rate your experience <ArrowUpRight size={16} />
+            </Link>
+          </div>
         </div>
       </section>
 
       <section className="visit-section site-container" id="visit" aria-labelledby="visit-title">
-        <div className="visit-map" data-reveal aria-label="Decorative map graphic for Kanpur, not a precise address pin">
-          <div className="map-grid-lines" />
-          <div className="map-river" />
-          <div className="map-label map-label-city">KANPUR</div>
-          <div className="map-marker"><span /><span /></div>
-          <div className="map-label map-label-dhaba">TIWARI DHABA<br /><small>SEARCH LISTING</small></div>
-          <span className="map-caption">Illustrative map · not to scale</span>
+        <div className="visit-map" data-reveal>
+          <iframe
+            title="Tiwari Dhaba location on Google Maps"
+            className="visit-map-embed"
+            src={`https://www.google.com/maps?q=${encodeURIComponent(BUSINESS_ADDRESS_FULL)}&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
         <div className="visit-copy" data-reveal>
           <p className="eyebrow">Find your way</p>
-          <h2 id="visit-title" className="section-title serif">A stop in <em>Kanpur.</em></h2>
-          <p className="body-copy">Tiwari Dhaba, Kanpur, Uttar Pradesh, India. Use the Google Maps search to check the current listing and route; an exact street address has not been provided.</p>
+          <h2 id="visit-title" className="section-title serif">A stop on <em>NH 19.</em></h2>
+          <p className="body-copy">{BUSINESS_ADDRESS_FULL}. Directly on the highway near Bhaunti — use Google Maps for live directions.</p>
           <div className="visit-details">
             <div><Clock3 size={17} /><span><strong>Open 24 hours</strong><small>Every day</small></span></div>
             <div><Leaf size={17} /><span><strong>Pure vegetarian</strong><small>₹1–200 per menu item</small></span></div>

@@ -264,10 +264,12 @@ button, a { touch-action: manipulation; }
 .proof-controls { display: flex; gap: 7px; }
 .proof-control { width: 21px; height: 4px; padding: 0; border: 0; border-radius: 9px; background: rgba(247, 227, 190, .25); cursor: pointer; }
 .proof-control.is-active { width: 34px; background: #e5b45c; }
-.proof-google-link { position: absolute; right: 25px; bottom: 23px; display: inline-flex; align-items: center; gap: 6px; color: #e2bc77; font-size: 10px; font-weight: 750; text-decoration: none; }
+.proof-links { position: absolute; right: 25px; bottom: 23px; display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
+.proof-google-link { display: inline-flex; align-items: center; gap: 6px; color: #e2bc77; font-size: 10px; font-weight: 750; text-decoration: none; }
 
 .visit-section { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: clamp(40px, 8vw, 100px); padding-block: 30px 115px; }
 .visit-map { position: relative; isolation: isolate; min-height: 410px; overflow: hidden; border: 1px solid #d8ceb9; border-radius: 14px; background: #e7e3d5; }
+.visit-map-embed { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: saturate(.85) contrast(1.03); }
 .map-grid-lines { position: absolute; inset: -15%; opacity: .7; background-image: linear-gradient(31deg, transparent 47%, rgba(123,132,108,.33) 48%, rgba(123,132,108,.33) 48.4%, transparent 49%), linear-gradient(113deg, transparent 47%, rgba(123,132,108,.25) 48%, rgba(123,132,108,.25) 48.4%, transparent 49%); background-size: 78px 78px; transform: rotate(-7deg); }
 .map-river { position: absolute; top: -25%; left: 54%; width: 65%; height: 145%; border: 32px solid #c5d2c5; border-color: transparent transparent transparent #c5d2c5; border-radius: 48%; opacity: .78; transform: rotate(25deg); }
 .map-label { position: absolute; z-index: 1; color: #697357; font-size: 10px; font-weight: 850; letter-spacing: .2em; }
@@ -334,7 +336,7 @@ button, a { touch-action: manipulation; }
   .mobile-navigation { display: block; }
   .mobile-cta-bar {
     position: fixed; z-index: 45; right: 12px; bottom: max(10px, env(safe-area-inset-bottom)); left: 12px;
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 7px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 7px;
     border: 1px solid rgba(98, 74, 49, .17); border-radius: 999px; background: rgba(250, 247, 239, .94);
     box-shadow: 0 12px 38px rgba(42, 28, 19, .16); backdrop-filter: blur(16px);
   }
@@ -383,7 +385,7 @@ button, a { touch-action: manipulation; }
   .proof-section { grid-template-columns: 1fr; gap: 29px; margin-block: 64px; padding: 27px 22px; }
   .proof-stage { min-height: 224px; padding: 20px; }
   .proof-card-content strong { font-size: clamp(2.8rem, 11vw, 4rem); }
-  .proof-google-link { right: 20px; bottom: 18px; }
+  .proof-links { right: 20px; bottom: 18px; }
   .visit-section { grid-template-columns: 1fr; gap: 35px; padding-block: 12px 72px; }
   .visit-map { min-height: 310px; }
   .faq-section { grid-template-columns: 1fr; gap: 27px; padding-block: 45px 75px; }
