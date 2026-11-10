@@ -475,7 +475,7 @@ router.get("/business", (_req, res) => {
     GetBusinessResponse.parse({
       name: "Tiwari Dhaba",
       type: "Pure vegetarian dhaba",
-      location: "NH 19, Bhautipratappur, near Bhaunti, Kanpur, Uttar Pradesh 209305",
+      location: "NH 19, Bhautipratappur, near Bhaunti, Kanpur, Uttar Pradesh 208020",
       priceRange: "₹10–₹320",
       // Verified against the live Google Business Profile listing for this
       // address/phone number. Update this pair if the owner reports a

@@ -10,12 +10,12 @@ export const BUSINESS_ADDRESS = {
   line2: "Near Bhaunti",
   locality: "Kanpur",
   region: "Uttar Pradesh",
-  postalCode: "209305",
+  postalCode: "208020",
   country: "IN",
 } as const;
 
 export const BUSINESS_ADDRESS_FULL =
-  "Tiwari Dhaba, NH 19, Bhautipratappur, near Bhaunti, Kanpur, Uttar Pradesh 209305";
+  "Tiwari Dhaba, NH 19, Bhautipratappur, near Bhaunti, Kanpur, Uttar Pradesh 208020";
 
 // Verified Google Maps place link (owner-supplied) — used for every
 // "Get Directions" / "Open in Google Maps" action across the site.
