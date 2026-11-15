@@ -4,11 +4,11 @@ import { useLocation } from 'wouter';
 const pages: Record<string, { title: string; description: string; robots?: string }> = {
   '/': {
     title: 'Tiwari Dhaba | Pure Vegetarian Food in Kanpur',
-    description: 'Visit Tiwari Dhaba in Kanpur for pure vegetarian food, open 24 hours every day. Browse the menu, explore rooms, and see the event lawn.',
+    description: 'Tiwari Dhaba is a pure vegetarian dhaba on NH 19 in Kanpur, open 24 hours every day. Browse the menu, explore AC/Non-AC rooms, and see the event lawn.',
   },
   '/menu': {
     title: 'Vegetarian Menu in Kanpur | Tiwari Dhaba',
-    description: 'Explore Tiwari Dhaba’s vegetarian menu in Kanpur, including paneer curries, dal, naan, paratha, snacks, rice, thalis and refreshing drinks.',
+    description: 'Explore the menu at Tiwari Dhaba, a vegetarian dhaba on NH 19 in Kanpur, including paneer curries, dal, naan, paratha, snacks, rice, thalis and refreshing drinks.',
   },
   '/rooms': {
     title: 'Rooms & Swimming Pool in Kanpur | Tiwari Dhaba',

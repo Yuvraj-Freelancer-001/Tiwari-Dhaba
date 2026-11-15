@@ -57,6 +57,13 @@ function Shell({ children }: { children: React.ReactNode }) {
   const business = useGetBusiness();
   const contactDigits = (business.data?.whatsappNumber || '').replace(/\D/g, '');
   const contactConfigured = contactDigits.length > 0;
+  // Visible NAP phone text (not just an icon button) so the number printed
+  // on the page matches the Google Business Profile listing exactly.
+  const displayPhone = contactConfigured
+    ? (contactDigits.length === 12 && contactDigits.startsWith('91')
+        ? `+91 ${contactDigits.slice(2, 7)} ${contactDigits.slice(7)}`
+        : `+${contactDigits}`)
+    : '';
   return <div className="site-shell min-h-[100dvh]">
     <SeoHead />
     <div className="topline"><span><Clock3 size={14} /> OPEN 24 HOURS · EVERY DAY</span><i /> PURE VEGETARIAN · KANPUR</div>
@@ -111,7 +118,7 @@ function Shell({ children }: { children: React.ReactNode }) {
           {contactConfigured ? (
             <>
               <a className="footer-map-link" href={`https://wa.me/${contactDigits}`} target="_blank" rel="noopener noreferrer" data-testid="link-footer-whatsapp"><MessageCircle size={14} /> Chat with us on WhatsApp</a>
-              <a className="footer-map-link" href={`tel:+${contactDigits}`} data-testid="link-footer-call"><Phone size={14} /> Call the dhaba</a>
+              <a className="footer-map-link" href={`tel:+${contactDigits}`} data-testid="link-footer-call"><Phone size={14} /> Call: {displayPhone}</a>
             </>
           ) : (
             <p className="newsletter-note" data-testid="footer-contact-status">Direct call/WhatsApp number is not configured yet.</p>

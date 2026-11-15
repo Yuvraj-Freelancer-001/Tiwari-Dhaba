@@ -133,11 +133,11 @@ export default function LandingPage() {
           <div className="hero-copy">
             <p className="hero-kicker" data-hero-reveal><span /> KANPUR · PURE VEGETARIAN</p>
             <h1 id="hero-title" className="hero-title serif">
-              <span data-hero-reveal>A good meal.</span>
+              <span data-hero-reveal>A good meal in Kanpur.</span>
               <span className="hero-title-accent" data-hero-reveal>Any hour.</span>
             </h1>
             <p className="hero-description" data-hero-reveal>
-              Tiwari Dhaba welcomes you for pure vegetarian food in Kanpur, open 24 hours every day.
+              Tiwari Dhaba is a pure vegetarian dhaba on NH 19, open 24 hours every day for travellers and locals in Kanpur.
             </p>
             <div className="hero-actions" data-hero-reveal>
               <Link href="/menu" className="button button-primary magnetic" data-testid="cta-menu" data-magnetic>

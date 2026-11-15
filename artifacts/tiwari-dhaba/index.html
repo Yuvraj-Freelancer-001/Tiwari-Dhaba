@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tiwari Dhaba | Pure Vegetarian Food in Kanpur</title>
-    <meta name="description" content="Visit Tiwari Dhaba in Kanpur for pure vegetarian food, open 24 hours every day. Browse the menu, explore rooms, and see the event lawn." />
+    <meta name="description" content="Tiwari Dhaba is a pure vegetarian dhaba on NH 19 in Kanpur, open 24 hours every day. Browse the menu, explore AC/Non-AC rooms, and see the event lawn." />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="Tiwari Dhaba | Pure Vegetarian Food in Kanpur" />
-    <meta property="og:description" content="Pure vegetarian food in Kanpur, open 24 hours every day." />
+    <meta property="og:description" content="A pure vegetarian dhaba on NH 19 in Kanpur, open 24 hours every day." />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:image" content="./og-tiwari-dhaba.svg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Tiwari Dhaba | Pure Vegetarian Food in Kanpur" />
-    <meta name="twitter:description" content="Pure vegetarian food in Kanpur, open 24 hours every day." />
+    <meta name="twitter:description" content="A pure vegetarian dhaba on NH 19 in Kanpur, open 24 hours every day." />
     <meta name="twitter:image" content="./og-tiwari-dhaba.svg" />
     <meta name="theme-color" content="#24130f" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -21,7 +21,10 @@
       {
         "@context": "https://schema.org",
         "@type": "Restaurant",
+        "@id": "https://tiwari-dhaba-navy.vercel.app/#business",
         "name": "Tiwari Dhaba",
+        "alternateName": "Tiwari Dhaba Kanpur",
+        "description": "Tiwari Dhaba is a 24-hour pure vegetarian dhaba on NH 19 near Bhaunti, Kanpur, serving North Indian thalis, paneer curries, breads and snacks, with AC and Non-AC rooms and an event lawn.",
         "servesCuisine": "North Indian, Vegetarian",
         "url": "https://tiwari-dhaba-navy.vercel.app/",
         "image": "https://tiwari-dhaba-navy.vercel.app/og-tiwari-dhaba.svg",
@@ -41,7 +44,19 @@
           "longitude": 80.197233
         },
         "hasMap": "https://maps.app.goo.gl/TcJkJSTgZrZQ2Qn39",
-        "openingHours": "Mo-Su 00:00-23:59",
+        "sameAs": [
+          "https://maps.app.goo.gl/TcJkJSTgZrZQ2Qn39"
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
+          }
+        ],
         "priceRange": "₹10–₹320",
         "aggregateRating": {
           "@type": "AggregateRating",
@@ -51,8 +66,28 @@
         "amenityFeature": [
           { "@type": "LocationFeatureSpecification", "name": "Rooms (AC & Non-AC)" },
           { "@type": "LocationFeatureSpecification", "name": "Swimming Pool" },
-          { "@type": "LocationFeatureSpecification", "name": "Event Lawn" }
-        ]
+          { "@type": "LocationFeatureSpecification", "name": "Event Lawn" },
+          { "@type": "LocationFeatureSpecification", "name": "Free Parking" }
+        ],
+        "hasMenu": {
+          "@type": "Menu",
+          "name": "Tiwari Dhaba Menu",
+          "url": "https://tiwari-dhaba-navy.vercel.app/menu",
+          "hasMenuSection": [
+            { "@type": "MenuSection", "name": "Thalis" },
+            { "@type": "MenuSection", "name": "Paneer & Main Course" },
+            { "@type": "MenuSection", "name": "Dal & Lentils" },
+            { "@type": "MenuSection", "name": "Breads" },
+            { "@type": "MenuSection", "name": "Vegetarian Curries" },
+            { "@type": "MenuSection", "name": "Rice & Pulao" },
+            { "@type": "MenuSection", "name": "Noodles & Starters" },
+            { "@type": "MenuSection", "name": "Snacks" },
+            { "@type": "MenuSection", "name": "Salads" },
+            { "@type": "MenuSection", "name": "Raita & Curd" },
+            { "@type": "MenuSection", "name": "Drinks" },
+            { "@type": "MenuSection", "name": "Desserts" }
+          ]
+        }
       }
     </script>
   </head>
