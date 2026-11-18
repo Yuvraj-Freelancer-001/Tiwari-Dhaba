@@ -119,6 +119,38 @@ export default function LandingPage() {
     return () => window.clearInterval(interval);
   }, [proofPaused]);
 
+  // FAQPage structured data for the FAQ section below — kept in sync with the
+  // visible <details> text so it matches Google's requirement that schema
+  // mirror on-page content. Scoped to the homepage only (not injected
+  // globally in index.html) since this is where the FAQ content actually
+  // lives, and useful for both classic rich-result eligibility and
+  // AI/voice answer extraction (GEO).
+  useEffect(() => {
+    const faqs: Array<[string, string]> = [
+      ['Is Tiwari Dhaba fully vegetarian?', 'Yes. Tiwari Dhaba is a pure vegetarian dhaba in Kanpur, serving only vegetarian North Indian food.'],
+      ['When is the dhaba open?', 'Tiwari Dhaba is open 24 hours, every day of the week, on NH 19 near Bhaunti, Kanpur.'],
+      ['Is there parking at Tiwari Dhaba?', 'Yes. Tiwari Dhaba has on-site parking space for customers, right on the highway.'],
+      ['Can I book a room?', 'Yes. Premium AC rooms are ₹1,500 per night and Non-AC rooms are ₹1,000 per night. Submit a request online and the booking is confirmed by the owner.'],
+      ['What payment methods does Tiwari Dhaba accept?', 'Tiwari Dhaba currently accepts cash payments at the counter.'],
+      ['Can I reserve a table in advance?', 'Tiwari Dhaba is a walk-in dhaba; advance table reservations are not available online. Please check the Google listing for any updates before travelling.'],
+      ['Can the team accommodate dietary requests or large groups?', 'The dhaba is pure vegetarian and has an event lawn for functions. Specific dietary accommodations and event arrangements should be confirmed with the owner.'],
+    ];
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'faq-jsonld';
+    script.text = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(([question, answer]) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer },
+      })),
+    });
+    document.head.appendChild(script);
+    return () => { document.getElementById('faq-jsonld')?.remove(); };
+  }, []);
+
   const proofValue = proofSlides[proofIndex].value === 'rating'
     ? (rating > 0 ? `${rating} / 5` : 'View Google listing')
     : proofSlides[proofIndex].value === 'reviews'
@@ -425,23 +457,31 @@ export default function LandingPage() {
         <div className="faq-list" data-reveal>
           <details className="faq-item">
             <summary>Is Tiwari Dhaba fully vegetarian?<span>+</span></summary>
-            <p>Yes. Tiwari Dhaba is a pure vegetarian business.</p>
+            <p>Yes. Tiwari Dhaba is a pure vegetarian dhaba in Kanpur, serving only vegetarian North Indian food.</p>
           </details>
           <details className="faq-item">
             <summary>When is the dhaba open?<span>+</span></summary>
-            <p>It is open 24 hours every day.</p>
+            <p>Tiwari Dhaba is open 24 hours, every day of the week, on NH 19 near Bhaunti, Kanpur.</p>
+          </details>
+          <details className="faq-item">
+            <summary>Is there parking at Tiwari Dhaba?<span>+</span></summary>
+            <p>Yes. Tiwari Dhaba has on-site parking space for customers, right on the highway.</p>
           </details>
           <details className="faq-item">
             <summary>Can I book a room?<span>+</span></summary>
-            <p>Room requests for Premium AC and Non-AC rooms can be submitted online. Availability and prices are confirmed by the owner.</p>
+            <p>Yes. Premium AC rooms are ₹1,500 per night and Non-AC rooms are ₹1,000 per night. Submit a request online and the booking is confirmed by the owner.</p>
           </details>
           <details className="faq-item">
-            <summary>Can I reserve a table or check parking?<span>+</span></summary>
-            <p>Table reservations and parking details have not been confirmed online. Please check the Google listing before travelling.</p>
+            <summary>What payment methods does Tiwari Dhaba accept?<span>+</span></summary>
+            <p>Tiwari Dhaba currently accepts cash payments at the counter.</p>
+          </details>
+          <details className="faq-item">
+            <summary>Can I reserve a table in advance?<span>+</span></summary>
+            <p>Tiwari Dhaba is a walk-in dhaba; advance table reservations are not available online. Please check the Google listing for any updates before travelling.</p>
           </details>
           <details className="faq-item">
             <summary>Can the team accommodate dietary requests or large groups?<span>+</span></summary>
-            <p>The dhaba is pure vegetarian and has an event lawn. Specific dietary accommodations and event arrangements should be confirmed with the owner.</p>
+            <p>The dhaba is pure vegetarian and has an event lawn for functions. Specific dietary accommodations and event arrangements should be confirmed with the owner.</p>
           </details>
         </div>
       </section>
