@@ -307,7 +307,9 @@ export default function LandingPage() {
               <p>Menu items will appear here when the owner publishes the current menu.</p>
             </div>
           )}
-          <p className="menu-price-note">Prices are still being confirmed by the owner. Unconfirmed prices are not charged online.</p>
+          {menuItems.some(item => item.priceIsPlaceholder) && (
+            <p className="menu-price-note">A couple of items (like cold drinks and ice cream, which vary by brand and flavour) are priced at the counter — everything else above is a confirmed price.</p>
+          )}
         </div>
       </section>
 
